@@ -14,6 +14,11 @@
         WHERE  USER_ID = #{id}
     </select>
 
+    <select id="selectByEntity" parameterType="com.test.entity.UserEntity" resultMap="BaseResultMap">
+        select * from  USERINFO
+        WHERE  USER_NAME = #{userName} AND USER_PWD = #{userPwd}
+    </select>
+
     <insert id="insertUser" parameterType="com.test.entity.UserEntity">
         insert into USERINFO (USER_ID,USER_NAME,USER_NAME) values (#{id},#{userName},#{userPwd});
     </insert>

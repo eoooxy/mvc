@@ -19,8 +19,7 @@ public class UserServiceImpl implements UserService {
 
     public int isUser(UserEntity entity) {
 
-        UserEntity userEntity = userEntityMapper.selectById(entity.getId());
-        if (userEntity != null) {
+        if (userEntityMapper.selectByEntity(entity) != null) {
             return 1;
         }
         return 0;

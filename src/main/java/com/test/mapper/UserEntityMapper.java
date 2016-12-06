@@ -13,5 +13,7 @@ public interface UserEntityMapper {
 
     UserEntity selectById(int id);
 
+    UserEntity selectByEntity(UserEntity entity);
+
     int insertUser(UserEntity entity);
 }

@@ -10,10 +10,10 @@ function login() {
     $("#form_login").submit();
 
     //ajax 提交方法
-    /*  var data = $("#form_login").serializeArray();
+    /*var data = $("#form_login").serializeArray();
     $.ajax({
-        type: 'post',
-        url: 'login.do',
+        type: "POST",
+        url: "login.do",
         data: data,
         success: function () {
         }
