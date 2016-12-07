@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -22,35 +21,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "login.do")
-    public String isLogin(UserDto dto, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("login.do")
+    public void isLogin(UserDto dto, HttpServletResponse response) {
         UserEntity entity = new UserEntity();
+        UserEntity tempEntity;
 
-        //Android端获取的参数
-        String name = request.getParameter("name");
-        String pwd = request.getParameter("pwd");
-        if (name != null && pwd != null) {
-            entity.setUserName(name);
-            entity.setUserPwd(pwd);
-        }
-        //网页端发送的dto
         if (dto.getUserName() != null && dto.getUserPwd() != null && !dto.getUserName().equals("") && !dto.getUserPwd().equals("")) {
             entity = UserCanvert.canvertFromEntity(dto);
         }
 
         if (entity != null) {
-            if (userService.isUser(entity) > 0) {
+            tempEntity = userService.isUser(entity);
+            if (tempEntity != null) {
                 try {
-                    response.getWriter().println(JsonUtil.toJson("true"));
+                    response.getWriter().println(JsonUtil.toJson(tempEntity));
+                    //return JsonUtil.toJson(tempEntity);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return "success";
             }
-        } else {
-            return "error";
         }
-
-        return "error";
+        //return "";
     }
 }

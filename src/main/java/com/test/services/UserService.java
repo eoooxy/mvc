@@ -8,5 +8,5 @@ import com.test.entity.UserEntity;
  */
 public interface UserService {
 
-    int isUser(UserEntity entity);
+    UserEntity isUser(UserEntity entity);
 }

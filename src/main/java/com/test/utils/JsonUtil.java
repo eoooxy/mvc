@@ -27,10 +27,6 @@ public class JsonUtil {
         return mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
     }
 
-    public static String toJson(Object object) throws JsonProcessingException {
-        return toJson(object, false);
-    }
-
     public static String toJson(Object object, boolean isFormat) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         if (isFormat) {
@@ -38,6 +34,10 @@ public class JsonUtil {
         } else {
             return mapper.writeValueAsString(object);
         }
+    }
+
+    public static String toJson(Object object) throws JsonProcessingException {
+        return toJson(object, false);
     }
 
     public static <T> T toObject(String content, Class<T> c)

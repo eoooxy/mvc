@@ -17,11 +17,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserEntityMapper userEntityMapper;
 
-    public int isUser(UserEntity entity) {
+    public UserEntity isUser(UserEntity entity) {
 
-        if (userEntityMapper.selectByEntity(entity) != null) {
-            return 1;
+        UserEntity resEntity;
+        if (entity != null) {
+            resEntity = userEntityMapper.selectByEntity(entity);
+            if (resEntity != null) {
+                return resEntity;
+            }
         }
-        return 0;
+        return null;
     }
 }
