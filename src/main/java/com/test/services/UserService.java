@@ -9,4 +9,7 @@ import com.test.entity.UserEntity;
 public interface UserService {
 
     UserEntity isUser(UserEntity entity);
+
+    int insert(UserEntity entity);
+
 }

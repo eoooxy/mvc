@@ -28,4 +28,8 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    public int insert(UserEntity entity) {
+        return userEntityMapper.insertUser(entity);
+    }
 }

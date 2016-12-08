@@ -20,7 +20,7 @@
     </select>
 
     <insert id="insertUser" parameterType="com.test.entity.UserEntity">
-        insert into USERINFO (USER_ID,USER_NAME,USER_NAME) values (#{id},#{userName},#{userPwd});
+        insert into USERINFO (USER_NAME,USER_PWD) values (#{userName},#{userPwd});
     </insert>
 
 </mapper>
