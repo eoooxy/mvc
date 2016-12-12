@@ -1,50 +1,103 @@
 package com.test.entity;
 
-import java.io.Serializable;
+public class UserEntity {
+    private Integer userId;
 
-/**
- * 帐号密码
- *
- * @author xueyuan
- * @dater 2016-11-23 0023.
- */
-public class UserEntity implements Serializable {
+    private String petName;
 
-    private int id;
+    private String userAge;
+
+    private String userSex;
+
+    private String userTel;
+
+    private String userEmail;
+
     private String userName;
-    private String userPwd;
-    private UserDetailEntity userDetail;
 
+    private String userPassword;
+
+    private Integer level;
+
+    private byte[] hardIcon;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getPetName() {
+        return petName;
+    }
+
+    public void setPetName(String petName) {
+        this.petName = petName == null ? null : petName.trim();
+    }
+
+    public String getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(String userAge) {
+        this.userAge = userAge == null ? null : userAge.trim();
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex == null ? null : userSex.trim();
+    }
+
+    public String getUserTel() {
+        return userTel;
+    }
+
+    public void setUserTel(String userTel) {
+        this.userTel = userTel == null ? null : userTel.trim();
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail == null ? null : userEmail.trim();
+    }
 
     public String getUserName() {
         return userName;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getUserPwd() {
-        return userPwd;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public UserDetailEntity getUserDetail() {
-        return userDetail;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setUserDetail(UserDetailEntity userDetail) {
-        this.userDetail = userDetail;
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public byte[] getHardIcon() {
+        return hardIcon;
+    }
+
+    public void setHardIcon(byte[] hardIcon) {
+        this.hardIcon = hardIcon;
     }
 }

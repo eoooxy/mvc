@@ -1,7 +1,7 @@
 package com.test.services.impl;
 
-import com.test.entity.UserEntity;
-import com.test.mapper.UserEntityMapper;
+import com.test.entity.UserEntity1;
+import com.test.mapper.UserEntityMapper1;
 import com.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    UserEntityMapper userEntityMapper;
+    UserEntityMapper1 userEntityMapper;
 
-    public UserEntity isUser(UserEntity entity) {
+    public UserEntity1 isUser(UserEntity1 entity) {
 
-        UserEntity resEntity;
+        UserEntity1 resEntity;
         if (entity != null) {
             resEntity = userEntityMapper.selectByEntity(entity);
             if (resEntity != null) {
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public int insert(UserEntity entity) {
+    public int insert(UserEntity1 entity) {
         return userEntityMapper.insertUser(entity);
     }
 }

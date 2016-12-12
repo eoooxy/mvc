@@ -3,7 +3,7 @@ package com.test.controller;
 import com.test.canvert.UserCanvert;
 import com.test.dto.UserDto;
 import com.test.entity.ResultMsg;
-import com.test.entity.UserEntity;
+import com.test.entity.UserEntity1;
 import com.test.services.UserService;
 import com.test.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class UserController {
 
     @RequestMapping("login.do")
     public void isLogin(UserDto dto, HttpServletResponse response) {
-        UserEntity entity = new UserEntity();
-        UserEntity tempEntity;
+        UserEntity1 entity = new UserEntity1();
+        UserEntity1 tempEntity;
 
         if (dto.getUserName() != null && dto.getUserPwd() != null && !dto.getUserName().equals("") && !dto.getUserPwd().equals("")) {
             entity = UserCanvert.canvertFromEntity(dto);
@@ -47,7 +47,7 @@ public class UserController {
 
     @RequestMapping("register.do")
     public void registerAcc(UserDto dto, HttpServletResponse response) {
-        UserEntity entity = null;
+        UserEntity1 entity = null;
         if (dto != null && dto.getUserName() != null && dto.getUserPwd() != null &&
                 !dto.getUserName().equals("") && !dto.getUserPwd().equals("")) {
             entity = UserCanvert.canvertFromEntity(dto);

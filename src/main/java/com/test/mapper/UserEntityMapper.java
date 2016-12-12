@@ -1,19 +1,19 @@
 package com.test.mapper;
 
 import com.test.entity.UserEntity;
-import org.springframework.stereotype.Repository;
 
-/**
- * @author xueyuan
- * @dater 2016-11-23 0023.
- */
-
-@Repository
 public interface UserEntityMapper {
+    int deleteByPrimaryKey(Integer userId);
 
-    UserEntity selectById(int id);
+    int insert(UserEntity record);
 
-    UserEntity selectByEntity(UserEntity entity);
+    int insertSelective(UserEntity record);
 
-    int insertUser(UserEntity entity);
+    UserEntity selectByPrimaryKey(Integer userId);
+
+    int updateByPrimaryKeySelective(UserEntity record);
+
+    int updateByPrimaryKeyWithBLOBs(UserEntity record);
+
+    int updateByPrimaryKey(UserEntity record);
 }

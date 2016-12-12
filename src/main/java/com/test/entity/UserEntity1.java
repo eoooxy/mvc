@@ -1,16 +1,24 @@
-package com.test.dto;
+package com.test.entity;
+
+import java.io.Serializable;
 
 /**
+ * 帐号密码
+ *
  * @author xueyuan
- * @dater 2016-11-24 0024.
+ * @dater 2016-11-23 0023.
  */
-public class UserDto {
+public class UserEntity1 implements Serializable {
 
     private int id;
-
     private String userName;
-
     private String userPwd;
+    private UserDetailEntity userDetail;
+
+
+    public String getUserName() {
+        return userName;
+    }
 
     public int getId() {
         return id;
@@ -18,10 +26,6 @@ public class UserDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public void setUserName(String userName) {
@@ -34,5 +38,13 @@ public class UserDto {
 
     public void setUserPwd(String userPwd) {
         this.userPwd = userPwd;
+    }
+
+    public UserDetailEntity getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetailEntity userDetail) {
+        this.userDetail = userDetail;
     }
 }

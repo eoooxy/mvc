@@ -1,26 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mapper.UserEntityMapper">
-    <!-- 解决表名与字段不匹配 -->
-    <resultMap type="com.test.entity.UserEntity" id="BaseResultMap">
-        <id property="id" column="USER_ID"/>
-        <result property="userName" column="USER_NAME"/>
-        <result property="userPwd" column="USER_PWD"/>
-    </resultMap>
-
-    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select * from  USERINFO
-        WHERE  USER_ID = #{id}
-    </select>
-
-    <select id="selectByEntity" parameterType="com.test.entity.UserEntity" resultMap="BaseResultMap">
-        select * from  USERINFO
-        WHERE  USER_NAME = #{userName} AND USER_PWD = #{userPwd}
-    </select>
-
-    <insert id="insertUser" parameterType="com.test.entity.UserEntity">
-        insert into USERINFO (USER_NAME,USER_PWD) values (#{userName},#{userPwd});
-    </insert>
-
+  <resultMap id="BaseResultMap" type="com.test.entity.UserEntity">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="PET_NAME" jdbcType="VARCHAR" property="petName" />
+    <result column="USER_AGE" jdbcType="VARCHAR" property="userAge" />
+    <result column="USER_SEX" jdbcType="VARCHAR" property="userSex" />
+    <result column="USER_TEL" jdbcType="VARCHAR" property="userTel" />
+    <result column="USER_EMAIL" jdbcType="VARCHAR" property="userEmail" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    <result column="LEVEL" jdbcType="INTEGER" property="level" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.test.entity.UserEntity">
+    <result column="HARD_ICON" jdbcType="LONGVARBINARY" property="hardIcon" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, PET_NAME, USER_AGE, USER_SEX, USER_TEL, USER_EMAIL, USER_NAME, USER_PASSWORD, 
+    LEVEL
+  </sql>
+  <sql id="Blob_Column_List">
+    HARD_ICON
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.UserEntity">
+    insert into user (USER_ID, PET_NAME, USER_AGE, 
+      USER_SEX, USER_TEL, USER_EMAIL, 
+      USER_NAME, USER_PASSWORD, LEVEL, 
+      HARD_ICON)
+    values (#{userId,jdbcType=INTEGER}, #{petName,jdbcType=VARCHAR}, #{userAge,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{hardIcon,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.UserEntity">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="petName != null">
+        PET_NAME,
+      </if>
+      <if test="userAge != null">
+        USER_AGE,
+      </if>
+      <if test="userSex != null">
+        USER_SEX,
+      </if>
+      <if test="userTel != null">
+        USER_TEL,
+      </if>
+      <if test="userEmail != null">
+        USER_EMAIL,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userPassword != null">
+        USER_PASSWORD,
+      </if>
+      <if test="level != null">
+        LEVEL,
+      </if>
+      <if test="hardIcon != null">
+        HARD_ICON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="petName != null">
+        #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="hardIcon != null">
+        #{hardIcon,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.UserEntity">
+    update user
+    <set>
+      <if test="petName != null">
+        PET_NAME = #{petName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        USER_AGE = #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        USER_SEX = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        USER_TEL = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        LEVEL = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="hardIcon != null">
+        HARD_ICON = #{hardIcon,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.test.entity.UserEntity">
+    update user
+    set PET_NAME = #{petName,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=VARCHAR},
+      USER_SEX = #{userSex,jdbcType=VARCHAR},
+      USER_TEL = #{userTel,jdbcType=VARCHAR},
+      USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      LEVEL = #{level,jdbcType=INTEGER},
+      HARD_ICON = #{hardIcon,jdbcType=LONGVARBINARY}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.UserEntity">
+    update user
+    set PET_NAME = #{petName,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=VARCHAR},
+      USER_SEX = #{userSex,jdbcType=VARCHAR},
+      USER_TEL = #{userTel,jdbcType=VARCHAR},
+      USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+      LEVEL = #{level,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
 </mapper>
