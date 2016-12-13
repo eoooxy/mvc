@@ -9,7 +9,7 @@ package com.test.entity;
 public class ResultMsg {
 
     private int resultCode;
-    private String resultContent;
+    private Object resultObject;
     private String resultMsg;
 
     public int getResultCode() {
@@ -20,12 +20,12 @@ public class ResultMsg {
         this.resultCode = resultCode;
     }
 
-    public String getResultContent() {
-        return resultContent;
+    public Object getResultObject() {
+        return resultObject;
     }
 
-    public void setResultContent(String resultContent) {
-        this.resultContent = resultContent;
+    public void setResultObject(Object resultObject) {
+        this.resultObject = resultObject;
     }
 
     public String getResultMsg() {

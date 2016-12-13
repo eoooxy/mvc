@@ -3,7 +3,7 @@ package com.test.controller;
 import com.test.canvert.UserCanvert;
 import com.test.dto.UserDto;
 import com.test.entity.ResultMsg;
-import com.test.entity.UserEntity1;
+import com.test.entity.UserEntity;
 import com.test.services.UserService;
 import com.test.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author xueyuan
@@ -24,10 +25,10 @@ public class UserController {
 
     @RequestMapping("login.do")
     public void isLogin(UserDto dto, HttpServletResponse response) {
-        UserEntity1 entity = new UserEntity1();
-        UserEntity1 tempEntity;
+        UserEntity entity = new UserEntity();
+        UserEntity tempEntity;
 
-        if (dto.getUserName() != null && dto.getUserPwd() != null && !dto.getUserName().equals("") && !dto.getUserPwd().equals("")) {
+        if (dto.getUserName() != null && dto.getUserPassword() != null && !dto.getUserName().equals("") && !dto.getUserPassword().equals("")) {
             entity = UserCanvert.canvertFromEntity(dto);
         }
 
@@ -35,11 +36,25 @@ public class UserController {
             tempEntity = userService.isUser(entity);
             if (tempEntity != null) {
                 try {
-                    response.getWriter().println(JsonUtil.toJson(tempEntity));
-                    //return JsonUtil.toJson(tempEntity);
+                    ResultMsg resultMsg = new ResultMsg();
+                    resultMsg.setResultCode(1);
+                    resultMsg.setResultMsg("登录成功");
+                    resultMsg.setResultObject(tempEntity);
+                    response.getWriter().println(JsonUtil.toJson(resultMsg));
+                    //response.getWriter().println(JsonUtil.toJson(tempEntity));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                try {
+                    ResultMsg resultMsg = new ResultMsg();
+                    resultMsg.setResultCode(-1);
+                    resultMsg.setResultMsg("登录失败");
+                    response.getWriter().println(JsonUtil.toJson(resultMsg));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
         //return "";
@@ -47,9 +62,9 @@ public class UserController {
 
     @RequestMapping("register.do")
     public void registerAcc(UserDto dto, HttpServletResponse response) {
-        UserEntity1 entity = null;
-        if (dto != null && dto.getUserName() != null && dto.getUserPwd() != null &&
-                !dto.getUserName().equals("") && !dto.getUserPwd().equals("")) {
+        UserEntity entity = null;
+        if (dto != null && dto.getUserName() != null && dto.getUserPassword() != null &&
+                !dto.getUserName().equals("") && !dto.getUserPassword().equals("")) {
             entity = UserCanvert.canvertFromEntity(dto);
         }
         if (entity != null) {
@@ -63,6 +78,8 @@ public class UserController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+
             }
         }
     }

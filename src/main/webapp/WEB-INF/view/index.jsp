@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td>密码</td>
-            <td><input id="userPwd" name="userPwd"></td>
+            <td><input id="userPassword" name="userPassword"></td>
         </tr>
         <tr>
             <td><input type="button" value="确定" onclick="login()"></td>

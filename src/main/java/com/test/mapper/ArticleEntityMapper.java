@@ -14,4 +14,5 @@ public interface ArticleEntityMapper {
     int updateByPrimaryKeySelective(ArticleEntity record);
 
     int updateByPrimaryKey(ArticleEntity record);
+
 }

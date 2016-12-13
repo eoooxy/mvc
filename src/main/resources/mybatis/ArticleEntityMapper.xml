@@ -6,11 +6,10 @@
     <result column="ARTICLE_CONTENT" jdbcType="VARCHAR" property="articleContent" />
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="CREATER_TIME" jdbcType="TIME" property="createrTime" />
-    <result column="MODFIY_TIME" jdbcType="TIME" property="modfiyTime" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    ARTICLE_ID, ARTICLE_CONTENT, USER_ID, CREATER_TIME, MODFIY_TIME, REMARK
+    ARTICLE_ID, ARTICLE_CONTENT, USER_ID, CREATER_TIME, REMARK
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.test.entity.ArticleEntity">
     insert into article (ARTICLE_ID, ARTICLE_CONTENT, USER_ID, 
-      CREATER_TIME, MODFIY_TIME, REMARK
-      )
+      CREATER_TIME, REMARK)
     values (#{articleId,jdbcType=INTEGER}, #{articleContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{createrTime,jdbcType=TIME}, #{modfiyTime,jdbcType=TIME}, #{remark,jdbcType=VARCHAR}
-      )
+      #{createrTime,jdbcType=TIME}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.test.entity.ArticleEntity">
     insert into article
@@ -44,9 +41,6 @@
       </if>
       <if test="createrTime != null">
         CREATER_TIME,
-      </if>
-      <if test="modfiyTime != null">
-        MODFIY_TIME,
       </if>
       <if test="remark != null">
         REMARK,
@@ -65,9 +59,6 @@
       <if test="createrTime != null">
         #{createrTime,jdbcType=TIME},
       </if>
-      <if test="modfiyTime != null">
-        #{modfiyTime,jdbcType=TIME},
-      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -85,9 +76,6 @@
       <if test="createrTime != null">
         CREATER_TIME = #{createrTime,jdbcType=TIME},
       </if>
-      <if test="modfiyTime != null">
-        MODFIY_TIME = #{modfiyTime,jdbcType=TIME},
-      </if>
       <if test="remark != null">
         REMARK = #{remark,jdbcType=VARCHAR},
       </if>
@@ -99,7 +87,6 @@
     set ARTICLE_CONTENT = #{articleContent,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
       CREATER_TIME = #{createrTime,jdbcType=TIME},
-      MODFIY_TIME = #{modfiyTime,jdbcType=TIME},
       REMARK = #{remark,jdbcType=VARCHAR}
     where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
   </update>

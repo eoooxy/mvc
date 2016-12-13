@@ -2,7 +2,7 @@ package com.test.entity;
 
 import java.util.Date;
 
-public class ChatListEntity {
+public class ChatEntity {
     private Integer chatId;
 
     private Integer fromUserId;
@@ -12,6 +12,8 @@ public class ChatListEntity {
     private String chatContent;
 
     private Date chatTime;
+
+    private Integer typeId;
 
     public Integer getChatId() {
         return chatId;
@@ -51,5 +53,13 @@ public class ChatListEntity {
 
     public void setChatTime(Date chatTime) {
         this.chatTime = chatTime;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 }

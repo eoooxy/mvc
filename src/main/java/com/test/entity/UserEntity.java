@@ -9,15 +9,9 @@ public class UserEntity {
 
     private String userSex;
 
-    private String userTel;
-
-    private String userEmail;
-
     private String userName;
 
     private String userPassword;
-
-    private Integer level;
 
     private byte[] hardIcon;
 
@@ -53,22 +47,6 @@ public class UserEntity {
         this.userSex = userSex == null ? null : userSex.trim();
     }
 
-    public String getUserTel() {
-        return userTel;
-    }
-
-    public void setUserTel(String userTel) {
-        this.userTel = userTel == null ? null : userTel.trim();
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail == null ? null : userEmail.trim();
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -83,14 +61,6 @@ public class UserEntity {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword == null ? null : userPassword.trim();
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public byte[] getHardIcon() {

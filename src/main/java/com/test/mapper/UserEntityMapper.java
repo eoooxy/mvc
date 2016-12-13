@@ -1,7 +1,10 @@
 package com.test.mapper;
 
 import com.test.entity.UserEntity;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public interface UserEntityMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -16,4 +19,6 @@ public interface UserEntityMapper {
     int updateByPrimaryKeyWithBLOBs(UserEntity record);
 
     int updateByPrimaryKey(UserEntity record);
+
+    UserEntity selectByNameAndPwd(UserEntity entity);
 }

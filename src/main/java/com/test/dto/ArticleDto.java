@@ -1,8 +1,12 @@
-package com.test.entity;
+package com.test.dto;
 
 import java.util.Date;
 
-public class ArticleEntity {
+/**
+ * @author xueyuan
+ * @dater 2016-12-13 0013.
+ */
+public class ArticleDto {
     private Integer articleId;
 
     private String articleContent;

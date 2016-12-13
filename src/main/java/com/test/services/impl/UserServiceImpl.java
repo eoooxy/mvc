@@ -1,7 +1,7 @@
 package com.test.services.impl;
 
-import com.test.entity.UserEntity1;
-import com.test.mapper.UserEntityMapper1;
+import com.test.entity.UserEntity;
+import com.test.mapper.UserEntityMapper;
 import com.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,21 +15,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    UserEntityMapper1 userEntityMapper;
+    UserEntityMapper userEntityMapper;
 
-    public UserEntity1 isUser(UserEntity1 entity) {
+    public UserEntity isUser(UserEntity entity) {
 
-        UserEntity1 resEntity;
+        UserEntity resultEntity;
         if (entity != null) {
-            resEntity = userEntityMapper.selectByEntity(entity);
-            if (resEntity != null) {
-                return resEntity;
+            resultEntity = userEntityMapper.selectByNameAndPwd(entity);
+            if (resultEntity != null) {
+                return resultEntity;
             }
         }
         return null;
     }
 
-    public int insert(UserEntity1 entity) {
-        return userEntityMapper.insertUser(entity);
+    public int insert(UserEntity entity) {
+        return userEntityMapper.insertSelective(entity);
     }
 }

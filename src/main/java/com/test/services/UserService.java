@@ -1,6 +1,6 @@
 package com.test.services;
 
-import com.test.entity.UserEntity1;
+import com.test.entity.UserEntity;
 
 /**
  * @author xueyuan
@@ -8,8 +8,8 @@ import com.test.entity.UserEntity1;
  */
 public interface UserService {
 
-    UserEntity1 isUser(UserEntity1 entity);
+    UserEntity isUser(UserEntity entity);
 
-    int insert(UserEntity1 entity);
+    int insert(UserEntity entity);
 
 }
