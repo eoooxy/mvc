@@ -13,6 +13,16 @@ public class ArticleEntity {
 
     private String remark;
 
+    private UserEntity userEntity;
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
     public Integer getArticleId() {
         return articleId;
     }

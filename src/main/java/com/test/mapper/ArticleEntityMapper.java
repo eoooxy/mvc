@@ -1,7 +1,11 @@
 package com.test.mapper;
 
 import com.test.entity.ArticleEntity;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface ArticleEntityMapper {
     int deleteByPrimaryKey(Integer articleId);
 
@@ -14,5 +18,7 @@ public interface ArticleEntityMapper {
     int updateByPrimaryKeySelective(ArticleEntity record);
 
     int updateByPrimaryKey(ArticleEntity record);
+
+    List<ArticleEntity> selectByTime();
 
 }

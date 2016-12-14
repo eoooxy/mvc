@@ -1,6 +1,8 @@
 package com.test.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.test.canvert.UserCanvert;
+import com.test.dto.ResultMsgDto;
 import com.test.dto.UserDto;
 import com.test.entity.ResultMsg;
 import com.test.entity.UserEntity;
@@ -29,28 +31,31 @@ public class UserController {
         UserEntity tempEntity;
 
         if (dto.getUserName() != null && dto.getUserPassword() != null && !dto.getUserName().equals("") && !dto.getUserPassword().equals("")) {
-            entity = UserCanvert.canvertFromEntity(dto);
+            entity = UserCanvert.canvertFromDto(dto);
         }
 
         if (entity != null) {
             tempEntity = userService.isUser(entity);
             if (tempEntity != null) {
                 try {
-                    ResultMsg resultMsg = new ResultMsg();
+                    ResultMsgDto resultMsg = new ResultMsgDto();
                     resultMsg.setResultCode(1);
                     resultMsg.setResultMsg("登录成功");
                     resultMsg.setResultObject(tempEntity);
-                    response.getWriter().println(JsonUtil.toJson(resultMsg));
-                    //response.getWriter().println(JsonUtil.toJson(tempEntity));
+                    response.setContentType("text/html");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().println(JSON.toJSON(resultMsg));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    ResultMsg resultMsg = new ResultMsg();
+                    ResultMsgDto resultMsg = new ResultMsgDto();
                     resultMsg.setResultCode(-1);
                     resultMsg.setResultMsg("登录失败");
-                    response.getWriter().println(JsonUtil.toJson(resultMsg));
+                    response.setContentType("text/html");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().println(JSON.toJSON(resultMsg));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -65,12 +70,12 @@ public class UserController {
         UserEntity entity = null;
         if (dto != null && dto.getUserName() != null && dto.getUserPassword() != null &&
                 !dto.getUserName().equals("") && !dto.getUserPassword().equals("")) {
-            entity = UserCanvert.canvertFromEntity(dto);
+            entity = UserCanvert.canvertFromDto(dto);
         }
         if (entity != null) {
             if (userService.insert(entity) > 0) {
                 try {
-                    ResultMsg resultMsg = new ResultMsg();
+                    ResultMsgDto resultMsg = new ResultMsgDto();
                     resultMsg.setResultCode(1);
                     resultMsg.setResultMsg("注册成功");
                     response.getWriter().println(JsonUtil.toJson(resultMsg));

@@ -1,88 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mapper.ArticleEntityMapper">
-  <resultMap id="BaseResultMap" type="com.test.entity.ArticleEntity">
-    <id column="ARTICLE_ID" jdbcType="INTEGER" property="articleId" />
-    <result column="ARTICLE_CONTENT" jdbcType="VARCHAR" property="articleContent" />
-    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
-    <result column="CREATER_TIME" jdbcType="TIME" property="createrTime" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.test.entity.ArticleEntity">
+        <id column="ARTICLE_ID" jdbcType="INTEGER" property="articleId"/>
+        <result column="ARTICLE_CONTENT" jdbcType="VARCHAR" property="articleContent"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="CREATER_TIME" jdbcType="TIME" property="createrTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <!-- property="userEntity" 是在ArticleEntity中定义的名字 要getter 和setter-->
+        <association property="userEntity" javaType="com.test.entity.UserEntity">
+            <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
+            <result column="PET_NAME" jdbcType="VARCHAR" property="petName"/>
+            <result column="USER_AGE" jdbcType="VARCHAR" property="userAge"/>
+            <result column="USER_SEX" jdbcType="VARCHAR" property="userSex"/>
+            <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+            <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword"/>
+            <result column="HARD_ICON" jdbcType="LONGVARBINARY" property="hardIcon"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.test.entity.UserEntity">
+        <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="PET_NAME" jdbcType="VARCHAR" property="petName"/>
+        <result column="USER_AGE" jdbcType="VARCHAR" property="userAge"/>
+        <result column="USER_SEX" jdbcType="VARCHAR" property="userSex"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap2" id="ResultMapWithBLOBs" type="com.test.entity.UserEntity">
+        <result column="HARD_ICON" jdbcType="LONGVARBINARY" property="hardIcon"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
     ARTICLE_ID, ARTICLE_CONTENT, USER_ID, CREATER_TIME, REMARK
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from article
-    where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+        where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
     where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.test.entity.ArticleEntity">
+    <insert id="insert" parameterType="com.test.entity.ArticleEntity">
     insert into article (ARTICLE_ID, ARTICLE_CONTENT, USER_ID, 
       CREATER_TIME, REMARK)
     values (#{articleId,jdbcType=INTEGER}, #{articleContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{createrTime,jdbcType=TIME}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.test.entity.ArticleEntity">
-    insert into article
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        ARTICLE_ID,
-      </if>
-      <if test="articleContent != null">
-        ARTICLE_CONTENT,
-      </if>
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="createrTime != null">
-        CREATER_TIME,
-      </if>
-      <if test="remark != null">
-        REMARK,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="articleContent != null">
-        #{articleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createrTime != null">
-        #{createrTime,jdbcType=TIME},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.ArticleEntity">
-    update article
-    <set>
-      <if test="articleContent != null">
-        ARTICLE_CONTENT = #{articleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createrTime != null">
-        CREATER_TIME = #{createrTime,jdbcType=TIME},
-      </if>
-      <if test="remark != null">
-        REMARK = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.test.entity.ArticleEntity">
+    <insert id="insertSelective" parameterType="com.test.entity.ArticleEntity">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">
+                ARTICLE_ID,
+            </if>
+            <if test="articleContent != null">
+                ARTICLE_CONTENT,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="createrTime != null">
+                CREATER_TIME,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">
+                #{articleId,jdbcType=INTEGER},
+            </if>
+            <if test="articleContent != null">
+                #{articleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createrTime != null">
+                #{createrTime,jdbcType=TIME},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.ArticleEntity">
+        update article
+        <set>
+            <if test="articleContent != null">
+                ARTICLE_CONTENT = #{articleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createrTime != null">
+                CREATER_TIME = #{createrTime,jdbcType=TIME},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.test.entity.ArticleEntity">
     update article
     set ARTICLE_CONTENT = #{articleContent,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
@@ -90,4 +114,10 @@
       REMARK = #{remark,jdbcType=VARCHAR}
     where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
   </update>
+
+    <select id="selectByTime" resultMap="BaseResultMap">
+        select
+        ARTICLE_ID, ARTICLE_CONTENT, a.USER_ID, CREATER_TIME, REMARK,b.USER_ID,PET_NAME, USER_AGE, USER_SEX, USER_NAME, USER_PASSWORD,HARD_ICON
+        from article a LEFT JOIN user b ON (a.USER_ID = b.USER_ID);
+    </select>
 </mapper>

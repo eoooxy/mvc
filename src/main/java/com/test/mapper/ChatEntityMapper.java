@@ -1,7 +1,9 @@
 package com.test.mapper;
 
 import com.test.entity.ChatEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ChatEntityMapper {
     int deleteByPrimaryKey(Integer chatId);
 

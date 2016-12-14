@@ -92,19 +92,19 @@ public class UserDto {
 
     public static class User implements Serializable {
 
-        private Integer userId;
+        public Integer userId;
 
-        private String petName;
+        public String petName;
 
-        private String userAge;
+        public String userAge;
 
-        private String userSex;
+        public String userSex;
 
-        private String userName;
+        public String userName;
 
-        private String userPassword;
+        public String userPassword;
 
-        private byte[] hardIcon;
+        public byte[] hardIcon;
 
         public Integer getUserId() {
             return userId;

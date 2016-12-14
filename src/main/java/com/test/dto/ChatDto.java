@@ -72,19 +72,18 @@ public class ChatDto {
     }
 
 
-
     public static class Chat implements Serializable {
-        private Integer chatId;
+        public Integer chatId;
 
-        private Integer fromUserId;
+        public Integer fromUserId;
 
-        private Integer toUserId;
+        public Integer toUserId;
 
-        private String chatContent;
+        public String chatContent;
 
-        private Date chatTime;
+        public Date chatTime;
 
-        private Integer typeId;
+        public Integer typeId;
 
         public Integer getChatId() {
             return chatId;

@@ -1,12 +1,14 @@
 package com.test.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xueyuan
  * @dater 2016-12-13 0013.
  */
 public class ArticleDto {
+
     private Integer articleId;
 
     private String articleContent;
@@ -16,6 +18,16 @@ public class ArticleDto {
     private Date createrTime;
 
     private String remark;
+
+    private UserDto userDto;
+
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
 
     public Integer getArticleId() {
         return articleId;
