@@ -1,12 +1,15 @@
 package com.test.mapper;
 
+import com.test.entity.ArticleAndUserEntity;
 import com.test.entity.ArticleEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ArticleEntityMapper {
+
     int deleteByPrimaryKey(Integer articleId);
 
     int insert(ArticleEntity record);
@@ -19,6 +22,6 @@ public interface ArticleEntityMapper {
 
     int updateByPrimaryKey(ArticleEntity record);
 
-    List<ArticleEntity> selectByTime();
+    List<ArticleAndUserEntity> selectByTime();
 
 }

@@ -3,6 +3,8 @@ package com.test.mapper;
 import com.test.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 
 @Repository
 public interface UserEntityMapper {
@@ -21,4 +23,6 @@ public interface UserEntityMapper {
     int updateByPrimaryKey(UserEntity record);
 
     UserEntity selectByNameAndPwd(UserEntity entity);
+
+    int selectIdByNameAndPwd(Map map);
 }

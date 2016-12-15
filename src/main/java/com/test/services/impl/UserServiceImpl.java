@@ -6,6 +6,9 @@ import com.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author xueyuan
  * @dater 2016-11-23 0023.
@@ -17,6 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserEntityMapper userEntityMapper;
 
+    @Override
     public UserEntity isUser(UserEntity entity) {
 
         UserEntity resultEntity;
@@ -29,7 +33,16 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
     public int insert(UserEntity entity) {
         return userEntityMapper.insertSelective(entity);
+    }
+
+    @Override
+    public int selectIdByNameAndPwd(String name, String password) {
+        Map map = new HashMap<>();
+        map.put("name", name);
+        map.put("password", password);
+        return userEntityMapper.selectIdByNameAndPwd(map);
     }
 }

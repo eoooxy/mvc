@@ -1,5 +1,6 @@
 package com.test.services.impl;
 
+import com.test.entity.ArticleAndUserEntity;
 import com.test.entity.ArticleEntity;
 import com.test.mapper.ArticleEntityMapper;
 import com.test.services.ArticleService;
@@ -21,12 +22,17 @@ public class ArticleServiceImpl implements ArticleService {
     ArticleEntityMapper articleEntityMapper;
 
     @Override
-    public List<ArticleEntity> selectByTime() {
+    public List<ArticleAndUserEntity> selectByTime() {
         return articleEntityMapper.selectByTime();
     }
 
     @Override
     public int insert(ArticleEntity entity) {
-        return 0;
+        return articleEntityMapper.insert(entity);
+    }
+
+    @Override
+    public ArticleEntity selectById(Integer id) {
+        return articleEntityMapper.selectByPrimaryKey(id);
     }
 }

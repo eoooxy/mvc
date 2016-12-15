@@ -139,4 +139,12 @@
         from user
         where USER_NAME = #{userName,jdbcType=VARCHAR} AND USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
     </select>
+
+    <select id="selectIdByNameAndPwd" parameterType="com.test.entity.UserEntity" resultMap="java.lang.Integer">
+        select
+         USER_ID
+        from user
+        where USER_NAME = #{userName,jdbcType=VARCHAR} AND USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

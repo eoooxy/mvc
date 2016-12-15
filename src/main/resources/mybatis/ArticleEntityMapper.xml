@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mapper.ArticleEntityMapper">
-    <resultMap id="BaseResultMap" type="com.test.entity.ArticleEntity">
+
+
+    <!-- 单表-->
+    <resultMap id="SingleBaseResultMap" type="com.test.entity.ArticleEntity">
         <id column="ARTICLE_ID" jdbcType="INTEGER" property="articleId"/>
         <result column="ARTICLE_CONTENT" jdbcType="VARCHAR" property="articleContent"/>
         <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
-        <result column="CREATER_TIME" jdbcType="TIME" property="createrTime"/>
+        <result column="CREATER_TIME" property="createrTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+
+    <!-- 多表-->
+    <resultMap id="BaseResultMap" type="com.test.entity.ArticleAndUserEntity">
+        <id column="ARTICLE_ID" jdbcType="INTEGER" property="articleId"/>
+        <result column="ARTICLE_CONTENT" jdbcType="VARCHAR" property="articleContent"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="CREATER_TIME" property="createrTime"/>
         <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
         <!-- property="userEntity" 是在ArticleEntity中定义的名字 要getter 和setter-->
+       <!-- <collection property="userEntity" javaType="com.test.entity.UserEntity"/>-->
         <association property="userEntity" javaType="com.test.entity.UserEntity">
             <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
             <result column="PET_NAME" jdbcType="VARCHAR" property="petName"/>
@@ -19,23 +32,12 @@
         </association>
     </resultMap>
 
-    <resultMap id="BaseResultMap2" type="com.test.entity.UserEntity">
-        <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
-        <result column="PET_NAME" jdbcType="VARCHAR" property="petName"/>
-        <result column="USER_AGE" jdbcType="VARCHAR" property="userAge"/>
-        <result column="USER_SEX" jdbcType="VARCHAR" property="userSex"/>
-        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
-        <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap2" id="ResultMapWithBLOBs" type="com.test.entity.UserEntity">
-        <result column="HARD_ICON" jdbcType="LONGVARBINARY" property="hardIcon"/>
-    </resultMap>
-
 
     <sql id="Base_Column_List">
     ARTICLE_ID, ARTICLE_CONTENT, USER_ID, CREATER_TIME, REMARK
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="SingleBaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from article
@@ -49,7 +51,7 @@
     insert into article (ARTICLE_ID, ARTICLE_CONTENT, USER_ID, 
       CREATER_TIME, REMARK)
     values (#{articleId,jdbcType=INTEGER}, #{articleContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{createrTime,jdbcType=TIME}, #{remark,jdbcType=VARCHAR})
+      #{createrTime}, #{remark,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.test.entity.ArticleEntity">
         insert into article
@@ -81,7 +83,7 @@
                 #{userId,jdbcType=INTEGER},
             </if>
             <if test="createrTime != null">
-                #{createrTime,jdbcType=TIME},
+                #{createrTime},
             </if>
             <if test="remark != null">
                 #{remark,jdbcType=VARCHAR},
@@ -98,7 +100,7 @@
                 USER_ID = #{userId,jdbcType=INTEGER},
             </if>
             <if test="createrTime != null">
-                CREATER_TIME = #{createrTime,jdbcType=TIME},
+                CREATER_TIME = #{createrTime},
             </if>
             <if test="remark != null">
                 REMARK = #{remark,jdbcType=VARCHAR},
@@ -106,11 +108,11 @@
         </set>
         where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.test.entity.ArticleEntity">
+    <update id="updateByPrimaryKey" parameterType="com.test.entity.ArticleAndUserEntity">
     update article
     set ARTICLE_CONTENT = #{articleContent,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
-      CREATER_TIME = #{createrTime,jdbcType=TIME},
+      CREATER_TIME = #{createrTime},
       REMARK = #{remark,jdbcType=VARCHAR}
     where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
   </update>

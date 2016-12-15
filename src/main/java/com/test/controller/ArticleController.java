@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.test.canvert.ArticleCanvert;
 import com.test.dto.ArticleDto;
 import com.test.dto.ResultMsgDto;
+import com.test.entity.ArticleAndUserEntity;
 import com.test.entity.ArticleEntity;
 import com.test.services.ArticleService;
-import com.test.utils.JsonUtil;
+import com.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,12 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("getArticle.do")
-    public void getArticleInfo(HttpServletResponse response) {
-        List<ArticleEntity> entities = articleService.selectByTime();
+    public void getArticleInfo(HttpServletResponse response) throws IOException {
+        List<ArticleAndUserEntity> entities = articleService.selectByTime();
         List<ArticleDto> list = ArticleCanvert.convertFromEntityNew(entities);
 
         if (list.size() > 0) {
@@ -43,17 +47,48 @@ public class ArticleController {
                 e.printStackTrace();
             }
         } else {
-            try {
-                ResultMsgDto resultMsg = new ResultMsgDto();
-                resultMsg.setResultCode(-1);
-                //resultMsg.setResultObject(list);
-                resultMsg.setResultMsg("获取数据失败");
-                response.setContentType("text/html");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().println(JSON.toJSON(resultMsg));
-            } catch (IOException e) {
-                e.printStackTrace();
+            getInfoFiled(response);
+        }
+    }
+
+
+    @RequestMapping("addArticle.do")
+    public void addArticleInfo(ArticleDto dto, HttpServletResponse response) throws IOException {
+
+        ArticleEntity entity = new ArticleEntity();
+
+        if (dto.getUserDto().getUserName() != null && dto.getUserDto().getUserPassword() != null
+                && !dto.getUserDto().getUserName().equals("") && !dto.getUserDto().getUserPassword().equals("")
+                && dto.getArticleContent() != null && dto.getArticleContent() != "") {
+            entity = ArticleCanvert.convertFromDtoSingle(dto);
+        }
+
+        if (entity != null) {
+            entity.setUserId(userService.selectIdByNameAndPwd(dto.getUserDto().getUserName(), dto.getUserDto().getUserPassword()));
+            if (articleService.insert(entity) > 0) {
+                try {
+                    ResultMsgDto resultMsg = new ResultMsgDto();
+                    resultMsg.setResultCode(1);
+                    resultMsg.setResultMsg("获取数据成功");
+                    response.setContentType("text/html");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().println(JSON.toJSON(resultMsg));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                getInfoFiled(response);
             }
         }
+
+    }
+
+    public void getInfoFiled(HttpServletResponse response) throws IOException {
+        ResultMsgDto resultMsg = new ResultMsgDto();
+        resultMsg.setResultCode(-1);
+        resultMsg.setResultMsg("获取数据失败");
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(JSON.toJSON(resultMsg));
     }
 }

@@ -2,7 +2,7 @@ package com.test.entity;
 
 import java.util.Date;
 
-public class ArticleEntity {
+public class ArticleAndUserEntity {
     private Integer articleId;
 
     private String articleContent;
@@ -12,6 +12,16 @@ public class ArticleEntity {
     private Date createrTime;
 
     private String remark;
+
+    private UserEntity userEntity;
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
     public Integer getArticleId() {
         return articleId;

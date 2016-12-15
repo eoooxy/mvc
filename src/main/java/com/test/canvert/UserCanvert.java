@@ -1,8 +1,6 @@
 package com.test.canvert;
 
 import com.test.dto.UserDto;
-import com.test.dto.UserDto;
-import com.test.entity.ArticleEntity;
 import com.test.entity.UserEntity;
 import com.test.utils.BeanPropertiesCopy;
 

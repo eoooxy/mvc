@@ -1,5 +1,6 @@
 package com.test.services;
 
+import com.test.entity.ArticleAndUserEntity;
 import com.test.entity.ArticleEntity;
 
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.List;
  */
 public interface ArticleService {
 
-    List<ArticleEntity> selectByTime();
+    List<ArticleAndUserEntity> selectByTime();
 
     int insert(ArticleEntity entity);
+
+    ArticleEntity selectById(Integer id);
 }

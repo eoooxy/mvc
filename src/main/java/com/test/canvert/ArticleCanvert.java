@@ -1,14 +1,12 @@
 package com.test.canvert;
 
 import com.test.dto.ArticleDto;
-import com.test.dto.UserDto;
+import com.test.entity.ArticleAndUserEntity;
 import com.test.entity.ArticleEntity;
 import com.test.entity.UserEntity;
-import com.test.utils.BeanPropertiesCopy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author xueyuan
@@ -16,23 +14,7 @@ import java.util.stream.Collectors;
  */
 public class ArticleCanvert {
 
-    public static ArticleDto convertFromEntity(ArticleEntity entity) {
-        ArticleDto dto = new ArticleDto();
-        try {
-            BeanPropertiesCopy.propertiesCopy(entity, dto);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return dto;
-    }
-
-    public static List<ArticleDto> convertFromEntity(List<ArticleEntity> entities) {
-        List<ArticleDto> dtos = new ArrayList<>();
-        dtos.addAll(entities.stream().map(ArticleCanvert::convertFromEntity).collect(Collectors.toList()));
-        return dtos;
-    }
-
-    public static ArticleDto convertFromEntityNew(ArticleEntity entity) {
+    public static ArticleDto convertFromEntityNew(ArticleAndUserEntity entity) {
         ArticleDto dto = new ArticleDto();
         dto.setUserId(entity.getUserId());
         dto.setArticleContent(entity.getArticleContent());
@@ -46,14 +28,50 @@ public class ArticleCanvert {
         return dto;
     }
 
-    public static List<ArticleDto> convertFromEntityNew(List<ArticleEntity> entities) {
+    public static ArticleDto convertFromEntityNew(ArticleEntity entity) {
+        ArticleDto dto = new ArticleDto();
+        dto.setUserId(entity.getUserId());
+        dto.setArticleContent(entity.getArticleContent());
+        dto.setArticleId(entity.getArticleId());
+        dto.setCreaterTime(entity.getCreaterTime());
+        dto.setRemark(entity.getRemark());
+        return dto;
+    }
+
+    public static List<ArticleDto> convertFromEntityNew(List<ArticleAndUserEntity> entities) {
         List<ArticleDto> dtos = new ArrayList<ArticleDto>();
-        for (ArticleEntity entity : entities
+        for (ArticleAndUserEntity entity : entities
                 ) {
             dtos.add(convertFromEntityNew(entity));
         }
         return dtos;
     }
 
+    public static ArticleAndUserEntity convertFromDto(ArticleDto dto) {
+        ArticleAndUserEntity entity = new ArticleAndUserEntity();
 
+        entity.setUserId(dto.getUserId());
+        entity.setArticleContent(dto.getArticleContent());
+        entity.setArticleId(dto.getArticleId());
+        entity.setCreaterTime(dto.getCreaterTime());
+        entity.setRemark(dto.getRemark());
+
+        UserEntity userEntity = UserCanvert.canvertFromDto(dto.getUserDto());
+        entity.setUserEntity(userEntity);
+
+        return entity;
+
+    }
+
+    public static ArticleEntity convertFromDtoSingle(ArticleDto dto) {
+        ArticleEntity entity = new ArticleEntity();
+
+        entity.setUserId(dto.getUserId());
+        entity.setArticleContent(dto.getArticleContent());
+        entity.setArticleId(dto.getArticleId());
+        entity.setCreaterTime(dto.getCreaterTime());
+        entity.setRemark(dto.getRemark());
+        return entity;
+
+    }
 }
