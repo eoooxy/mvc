@@ -1,12 +1,14 @@
 package com.test.dto;
 
+import java.io.Serializable;
+
 /**
  * 返回数据
  *
  * @author xueyuan
  * @dater 2016-12-8 0008.
  */
-public class ResultMsgDto {
+public class ResultMsgDto  implements Serializable {
 
     private int resultCode;
     private Object resultObject;

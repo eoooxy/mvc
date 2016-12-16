@@ -20,7 +20,7 @@
         <result column="CREATER_TIME" property="createrTime"/>
         <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
         <!-- property="userEntity" 是在ArticleEntity中定义的名字 要getter 和setter-->
-       <!-- <collection property="userEntity" javaType="com.test.entity.UserEntity"/>-->
+        <!-- <collection property="userEntity" javaType="com.test.entity.UserEntity"/>-->
         <association property="userEntity" javaType="com.test.entity.UserEntity">
             <id column="USER_ID" jdbcType="INTEGER" property="userId"/>
             <result column="PET_NAME" jdbcType="VARCHAR" property="petName"/>
@@ -47,12 +47,14 @@
     delete from article
     where ARTICLE_ID = #{articleId,jdbcType=INTEGER}
   </delete>
+
     <insert id="insert" parameterType="com.test.entity.ArticleEntity">
-    insert into article (ARTICLE_ID, ARTICLE_CONTENT, USER_ID, 
+    insert into article ( ARTICLE_CONTENT, USER_ID,
       CREATER_TIME, REMARK)
-    values (#{articleId,jdbcType=INTEGER}, #{articleContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values ( #{articleContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
       #{createrTime}, #{remark,jdbcType=VARCHAR})
   </insert>
+
     <insert id="insertSelective" parameterType="com.test.entity.ArticleEntity">
         insert into article
         <trim prefix="(" suffix=")" suffixOverrides=",">

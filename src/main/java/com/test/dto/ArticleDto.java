@@ -1,12 +1,13 @@
 package com.test.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author xueyuan
  * @dater 2016-12-13 0013.
  */
-public class ArticleDto {
+public class ArticleDto implements Serializable{
 
     private Integer articleId;
 

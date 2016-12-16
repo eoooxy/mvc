@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public int selectIdByNameAndPwd(String name, String password) {
         Map map = new HashMap<>();
-        map.put("name", name);
-        map.put("password", password);
+        map.put("userName", name);
+        map.put("userPassword", password);
         return userEntityMapper.selectIdByNameAndPwd(map);
     }
 }

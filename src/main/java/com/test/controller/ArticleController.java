@@ -1,6 +1,7 @@
 package com.test.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.test.canvert.ArticleCanvert;
 import com.test.dto.ArticleDto;
 import com.test.dto.ResultMsgDto;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +56,12 @@ public class ArticleController {
 
 
     @RequestMapping("addArticle.do")
-    public void addArticleInfo(ArticleDto dto, HttpServletResponse response) throws IOException {
+    public void addArticleInfo(ArticleDto dto, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+        String pojoStr = request.getParameter("pojoStr");
+        dto = JSON.parseObject(pojoStr, new TypeReference<ArticleDto>() {
+        });
 
         ArticleEntity entity = new ArticleEntity();
 
@@ -65,6 +73,7 @@ public class ArticleController {
 
         if (entity != null) {
             entity.setUserId(userService.selectIdByNameAndPwd(dto.getUserDto().getUserName(), dto.getUserDto().getUserPassword()));
+            entity.setCreaterTime(new Date());
             if (articleService.insert(entity) > 0) {
                 try {
                     ResultMsgDto resultMsg = new ResultMsgDto();
