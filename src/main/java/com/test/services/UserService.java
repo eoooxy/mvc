@@ -13,4 +13,6 @@ public interface UserService {
     int insert(UserEntity entity);
 
     int selectIdByNameAndPwd(String name, String password);
+
+    int update(UserEntity entity);
 }

@@ -148,4 +148,27 @@
         WHERE  USER_NAME = #{userName,jdbcType=VARCHAR}  AND USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
     </select>
 
+
+    <update id="updateByUserNameSelective" parameterType="com.test.entity.UserEntity">
+        update user
+        <set>
+            <if test="petName != null">
+                PET_NAME = #{petName,jdbcType=VARCHAR},
+            </if>
+            <if test="userAge != null">
+                USER_AGE = #{userAge,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                USER_SEX = #{userSex,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="hardIcon != null">
+                HARD_ICON = #{hardIcon,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        WHERE USER_NAME = #{userName,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

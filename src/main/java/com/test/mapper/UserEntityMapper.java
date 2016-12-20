@@ -25,4 +25,6 @@ public interface UserEntityMapper {
     UserEntity selectByNameAndPwd(UserEntity entity);
 
     int selectIdByNameAndPwd(Map map);
+
+    int updateByUserNameSelective(UserEntity entity);
 }

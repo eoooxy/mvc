@@ -45,4 +45,13 @@ public class UserServiceImpl implements UserService {
         map.put("userPassword", password);
         return userEntityMapper.selectIdByNameAndPwd(map);
     }
+
+    @Override
+    public int update(UserEntity entity) {
+
+        if (entity != null) {
+            return userEntityMapper.updateByUserNameSelective(entity);
+        }
+        return 0;
+    }
 }

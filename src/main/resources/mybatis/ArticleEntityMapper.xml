@@ -122,6 +122,6 @@
     <select id="selectByTime" resultMap="BaseResultMap">
         select
         ARTICLE_ID, ARTICLE_CONTENT, a.USER_ID, CREATER_TIME, REMARK,b.USER_ID,PET_NAME, USER_AGE, USER_SEX, USER_NAME, USER_PASSWORD,HARD_ICON
-        from article a LEFT JOIN user b ON (a.USER_ID = b.USER_ID);
+        from article a LEFT JOIN user b ON (a.USER_ID = b.USER_ID)  ORDER BY CREATER_TIME DESC LIMIT 1,10 ;
     </select>
 </mapper>

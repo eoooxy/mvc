@@ -13,6 +13,10 @@
     </context-param>
 
     <listener>
+        <listener-class>com.test.services.MySocket</listener-class>
+    </listener>
+
+    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 

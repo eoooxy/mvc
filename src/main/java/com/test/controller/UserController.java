@@ -1,7 +1,10 @@
 package com.test.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.test.canvert.UserCanvert;
+import com.test.dto.ArticleDto;
 import com.test.dto.ResultMsgDto;
 import com.test.dto.UserDto;
 import com.test.entity.ResultMsg;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -87,6 +91,36 @@ public class UserController {
 
             }
         }
+    }
+
+    @RequestMapping("update.do")
+    public void updateAcc(UserDto dto, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String pojoStr = request.getParameter("pojoStr");
+        dto = JSON.parseObject(pojoStr, new TypeReference<UserDto>() {
+        });
+        UserEntity entity = null;
+        if (dto != null && dto.getUserName() != null && !dto.getUserName().equals("")) {
+            entity = UserCanvert.canvertFromDto(dto);
+        }
+        if (entity != null && entity.getUserName() != "" && entity.getUserName() != null) {
+            if (userService.update(entity) > 0) {
+                ResultMsgDto resultMsg = new ResultMsgDto();
+                resultMsg.setResultCode(1);
+                resultMsg.setResultMsg("修改成功");
+                response.setContentType("text/html");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JsonUtil.toJson(resultMsg));
+            } else {
+                ResultMsgDto resultMsg = new ResultMsgDto();
+                resultMsg.setResultCode(-1);
+                resultMsg.setResultMsg("修改失败");
+                response.setContentType("text/html");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println(JsonUtil.toJson(resultMsg));
+            }
+        }
+
     }
 }
 
